@@ -1,5 +1,7 @@
 package edu.ithaca.dturnbull.bank;
 
+import java.util.ArrayList;
+
 public class BankAccount {
 
     private String email;
@@ -37,14 +39,57 @@ public class BankAccount {
             throw new InsufficientFundsException("Not enough money");
         }
     }
-
-
-    public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1){
-            return false;
-        }
-        else {
+    // New method to check for special characters
+    public static boolean specialChar(char c){
+        String specialChars = "!#$%&'*+/=?^_`{|}~-.";
+        if (specialChars.indexOf(c) != -1){
             return true;
         }
+        return false;
     }
+
+    public static boolean isEmailValid(String email){
+        String[] emailParts = email.split("@");
+
+        if (email.indexOf('@') == -1 || emailParts.length != 2){
+            return false;
+        }
+        String emailLocal = emailParts[0];
+        String emailDomain = emailParts[1];
+        // All Local Checks 
+        if (BankAccount.specialChar(emailLocal.charAt(0))|| BankAccount.specialChar(emailLocal.charAt(emailLocal.length() - 1))) {
+            return false;
+        }
+        if (emailLocal.indexOf("..") != -1){
+            return false;
+        }
+        if (emailDomain.isEmpty() || !emailDomain.contains(".")) {
+            return false;
+        }
+
+        // Domain Checks
+        if (emailDomain.indexOf("..") != -1){
+            return false;
+        }
+
+        String [] domainParts = emailDomain.split("\\.");
+
+        if (domainParts.length < 2) {
+            return false; 
+        }
+        // Breaks off tdl 
+        String tld = domainParts[domainParts.length - 1]; 
+        
+        if (tld.length() < 2 || tld.length() > 63) {
+            return false;
+        }
+        // experimental regex code
+        String regex = "[^a-zA-Z0-9.-]"; 
+
+        if (emailDomain.matches(".*" + regex + ".*")) {
+        return false; 
+        }
+
+        return true;
+}
 }
