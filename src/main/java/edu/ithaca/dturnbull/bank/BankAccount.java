@@ -56,6 +56,7 @@ public class BankAccount {
         }
         String emailLocal = emailParts[0];
         String emailDomain = emailParts[1];
+        
         // All Local Checks 
         if (BankAccount.specialChar(emailLocal.charAt(0))|| BankAccount.specialChar(emailLocal.charAt(emailLocal.length() - 1))) {
             return false;

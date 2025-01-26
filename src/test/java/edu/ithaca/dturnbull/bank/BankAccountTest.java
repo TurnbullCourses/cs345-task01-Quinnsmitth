@@ -47,7 +47,7 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid("abc.def@mail..com")); // two consecutive periods
         assertFalse(BankAccount.isEmailValid("abc.def@mail")); // no TLD
     }
-
+    /// Good test I have no complaints, did a good job implementing the EP and BVA testing methods
     @Test
     void constructorTest() {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
