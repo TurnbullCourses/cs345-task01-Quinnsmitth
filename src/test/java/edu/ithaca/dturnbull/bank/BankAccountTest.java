@@ -89,4 +89,13 @@ class BankAccountTest {
         assertFalse(BankAccount.isAmountValid(-1));
         assertFalse(BankAccount.isAmountValid(10.111));
     }
+    @Test
+    void transferTest(){
+       /*Tests */
+    }
+
+    @Test
+    void depositTest() throws InsufficientFundsException {
+        /*tests */
+    }
 }

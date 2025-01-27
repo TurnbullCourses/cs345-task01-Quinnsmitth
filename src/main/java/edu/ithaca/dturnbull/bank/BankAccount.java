@@ -64,6 +64,24 @@ public class BankAccount {
             throw new InsufficientFundsException("Not enough money");
         }
     }
+    
+    /* Puts money into an account */ 
+    public void deposit(double amount){
+        /*takes a double
+         * checks if the amount is valid
+         * adds the amount to the balance 
+         */
+    }
+
+    /*Takes money from one account and puts it into another account */
+    public void transfer(double amount, BankAccount otherAcct){
+        /*
+         * chekcs for valid amount 
+         * checks if the amount is less than the balance
+         * puts money from one account and places into another useing withdraw method
+         */
+    }
+
     // New method to check for special characters
     public static boolean specialChar(char c){
         String specialChars = "!#$%&'*+/=?^_`{|}~-.";
@@ -118,4 +136,5 @@ public class BankAccount {
 
         return true;
 }
+
 }
