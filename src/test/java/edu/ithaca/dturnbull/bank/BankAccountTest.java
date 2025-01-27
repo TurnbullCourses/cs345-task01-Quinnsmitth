@@ -3,13 +3,20 @@ package edu.ithaca.dturnbull.bank;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class BankAccountTest {
 
     @Test
-    void getBalanceTest() {
+    void getBalanceTest() throws InsufficientFundsException {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
-
         assertEquals(200, bankAccount.getBalance(), 0.001);
+        
+        assertEquals(200,bankAccount.getBalance());
+        bankAccount.withdraw(100);
+        bankAccount.withdraw(50);
+        bankAccount.withdraw(50);
+        // Checks after multiple withdrawals
+        assertEquals(100,bankAccount.getBalance());
     }
 
     @Test
@@ -19,6 +26,19 @@ class BankAccountTest {
 
         assertEquals(100, bankAccount.getBalance(), 0.001);
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
+        // Passing Tests
+        bankAccount.withdraw(1);
+        assertEquals(99, bankAccount.getBalance());
+        // Tests larger Withdrawals
+        bankAccount.withdraw(98);
+        assertEquals(1, bankAccount.getBalance());
+        // Tests Withdrawal that equals to 0
+        bankAccount.withdraw(1);
+        assertEquals(0, bankAccount.getBalance());
+        // Tests that Fail
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(1));
+        // Tests for negative values
+        assertThrows(IllegalArgumentException.class,()-> bankAccount.withdraw(-1));
     }
 
     @Test
