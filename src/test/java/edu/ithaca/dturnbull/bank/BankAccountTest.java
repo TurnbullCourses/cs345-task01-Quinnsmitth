@@ -77,6 +77,7 @@ class BankAccountTest {
         assertTrue(BankAccount.isAmountValid(amount));
         // check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, () -> new BankAccount("", 100));
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("qsmith@ithaca.edu",-100));
     }
     @Test
     void isAmountValidTest(){
