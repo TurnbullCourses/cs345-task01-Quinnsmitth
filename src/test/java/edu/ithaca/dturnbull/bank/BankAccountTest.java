@@ -10,13 +10,12 @@ class BankAccountTest {
     void getBalanceTest() throws InsufficientFundsException {
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         assertEquals(200, bankAccount.getBalance(), 0.001);
-        
-        assertEquals(200,bankAccount.getBalance());
+
         bankAccount.withdraw(100);
         bankAccount.withdraw(50);
         bankAccount.withdraw(50);
         // Checks after multiple withdrawals
-        assertEquals(100,bankAccount.getBalance());
+        assertEquals(0,bankAccount.getBalance());
     }
 
     @Test
