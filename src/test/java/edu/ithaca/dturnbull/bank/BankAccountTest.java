@@ -90,7 +90,7 @@ class BankAccountTest {
         assertFalse(BankAccount.isAmountValid(10.111));
     }
     @Test
-    void transferTest(){
+    void transferTest() throws InsufficientFundsException {
         BankAccount bankAccount = new BankAccount("qsmith@ithaca.edu", 100);
         BankAccount bankAccount2 = new BankAccount("bbienus@ithaca.edu", 100);
         //Valid transfer

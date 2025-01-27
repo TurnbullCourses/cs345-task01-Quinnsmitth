@@ -64,22 +64,27 @@ public class BankAccount {
             throw new InsufficientFundsException("Not enough money");
         }
     }
-    
+
     /* Puts money into an account */ 
     public void deposit(double amount){
-        /*takes a double
-         * checks if the amount is valid
-         * adds the amount to the balance 
-         */
+        if (BankAccount.isAmountValid(amount) == false){
+            throw new IllegalArgumentException("Cannot deposit negative amount");
+        }
+        balance += amount;
     }
 
     /*Takes money from one account and puts it into another account */
-    public void transfer(double amount, BankAccount otherAcct){
-        /*
-         * chekcs for valid amount 
-         * checks if the amount is less than the balance
-         * puts money from one account and places into another useing withdraw method
-         */
+    public void transfer(double amount, BankAccount otherAcct) throws InsufficientFundsException{
+       if(BankAccount.isAmountValid(amount)== false){
+              throw new IllegalArgumentException("Cannot transfer negative amount or amount with more than 2 decimal places");
+       }
+       if(amount > balance){
+           throw new InsufficientFundsException("Not enough money");
+       }
+       else{
+           balance -= amount;
+           otherAcct.deposit(amount);
+       }
     }
 
     // New method to check for special characters
