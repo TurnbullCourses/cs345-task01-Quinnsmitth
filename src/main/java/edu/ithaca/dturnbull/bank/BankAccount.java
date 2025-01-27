@@ -6,7 +6,7 @@ public class BankAccount {
 
     private String email;
     private double balance;
-
+    
     /**
      * @throws IllegalArgumentException if email is invalid
      */
@@ -18,6 +18,23 @@ public class BankAccount {
         else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
         }
+    }
+    // TODO: Add a method to check if the deciaml amount is valid
+
+    public static boolean isAmountValid(double amount){
+        if (amount < 0) {
+            return false;
+        }
+        String amountString = Double.toString(amount);
+
+        String[] amountParts = amountString.split("\\.");
+        
+        if (amountParts.length > 1){
+            if (amountParts[1].length() > 2){
+                return false;
+            }
+        }
+        return true;
     }
 
     public double getBalance(){
