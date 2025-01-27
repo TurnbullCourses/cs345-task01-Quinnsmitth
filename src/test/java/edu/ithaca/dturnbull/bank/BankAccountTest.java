@@ -91,11 +91,32 @@ class BankAccountTest {
     }
     @Test
     void transferTest(){
-       /*Tests */
+        BankAccount bankAccount = new BankAccount("qsmith@ithaca.edu", 100);
+        BankAccount bankAccount2 = new BankAccount("bbienus@ithaca.edu", 100);
+        //Valid transfer
+        bankAccount.transfer(50, bankAccount2);
+        assertEquals(150, bankAccount2.getBalance());
+        assertEquals(50, bankAccount.getBalance());
+        //Invalid Transfer Due not enough funds
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer(100, bankAccount2));
+        //Invalid Amount Formats Check
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(-50, bankAccount2));
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(50.111, bankAccount2));
+
     }
 
     @Test
     void depositTest() throws InsufficientFundsException {
-        /*tests */
+        BankAccount bankAccount = new BankAccount("qsmith@ithaca.edu", 100);
+        bankAccount.deposit(100);
+        //Valid amount deposit
+        assertEquals(200, bankAccount.getBalance());
+        //multiple deposits in a row
+        bankAccount.deposit(100);
+        bankAccount.deposit(100);
+        assertEquals(400, bankAccount.getBalance());
+        //Tries to deposit a negative and invalid decimal amount
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-100));
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(100.111));
     }
 }
