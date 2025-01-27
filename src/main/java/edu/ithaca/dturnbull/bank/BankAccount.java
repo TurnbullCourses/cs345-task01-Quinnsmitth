@@ -28,7 +28,7 @@ public class BankAccount {
         String amountString = Double.toString(amount);
 
         String[] amountParts = amountString.split("\\.");
-        
+
         if (amountParts.length > 1){
             if (amountParts[1].length() > 2){
                 return false;
@@ -49,7 +49,7 @@ public class BankAccount {
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
      */
     public void withdraw (double amount) throws InsufficientFundsException{
-        if (amount < 0){
+        if (BankAccount.isAmountValid(amount) == false){
             throw new IllegalArgumentException("Cannot withdraw negative amount");
         }
         if (amount <= balance){
