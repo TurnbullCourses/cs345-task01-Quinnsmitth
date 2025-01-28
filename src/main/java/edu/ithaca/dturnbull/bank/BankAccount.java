@@ -11,16 +11,15 @@ public class BankAccount {
     public BankAccount(String email, double startingBalance){
         if(isAmountValid(startingBalance) == false){
             throw new IllegalArgumentException("Cannot create account with negative balance or with more than 2 digits after decimal");
+        }        
+        if (isEmailValid(email)){
+            this.email = email;
+            this.balance = startingBalance;
         }
-        else{
-            if (isEmailValid(email)){
-                this.email = email;
-                this.balance = startingBalance;
-            }
-            else {
-                throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
-            }
+        else {
+            throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
         }
+        
     }
     // TODO: Add a method to check if the deciaml amount is valid
 
@@ -31,11 +30,9 @@ public class BankAccount {
         String amountString = Double.toString(amount);
 
         String[] amountParts = amountString.split("\\.");
-
-        if (amountParts.length > 1){
-            if (amountParts[1].length() > 2){
-                return false;
-            }
+        
+        if (amountParts.length > 1 && amountParts[1].length() > 2){
+            return false;
         }
         return true;
     }

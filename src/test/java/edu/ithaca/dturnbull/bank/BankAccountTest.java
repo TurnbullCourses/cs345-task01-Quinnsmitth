@@ -38,6 +38,8 @@ class BankAccountTest {
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(1));
         // Tests for negative values
         assertThrows(IllegalArgumentException.class,()-> bankAccount.withdraw(-1));
+        assertThrows(IllegalArgumentException.class,()-> bankAccount.withdraw(1.111));
+        
     }
 
     @Test
@@ -65,6 +67,7 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid("abc.def@mail#archive.com")); // invalid character in domain
         assertFalse(BankAccount.isEmailValid("abc.def@mail..com")); // two consecutive periods
         assertFalse(BankAccount.isEmailValid("abc.def@mail")); // no TLD
+        assertFalse(BankAccount.isEmailValid("ithaca.edu@qsmith")); // no TLD
     }
     /// Good test I have no complaints, did a good job implementing the EP and BVA testing methods
     @Test
@@ -78,12 +81,14 @@ class BankAccountTest {
         // check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, () -> new BankAccount("", 100));
         assertThrows(IllegalArgumentException.class, () -> new BankAccount("qsmith@ithaca.edu",-100));
+        assertThrows(IllegalArgumentException.class, () -> new BankAccount("qsmith@ithaca.edu",100.111));
     }
     @Test
     void isAmountValidTest(){
         //Passes
         assertTrue(BankAccount.isAmountValid(0));
         assertTrue(BankAccount.isAmountValid(10.1));
+        assertTrue(BankAccount.isAmountValid(10.01));
         assertTrue(BankAccount.isAmountValid(10.22));
         //Fails if Negative or more that 2 decimal places
         assertFalse(BankAccount.isAmountValid(-1));
