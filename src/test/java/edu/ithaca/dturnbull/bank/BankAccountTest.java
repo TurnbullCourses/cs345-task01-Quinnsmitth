@@ -100,13 +100,19 @@ class BankAccountTest {
         BankAccount bankAccount2 = new BankAccount("bbienus@ithaca.edu", 100);
         //Valid transfer
         bankAccount.transfer(50, bankAccount2);
-        assertEquals(150, bankAccount2.getBalance());
-        assertEquals(50, bankAccount.getBalance());
+        bankAccount2.transfer(.1, bankAccount);
+        //Ten cent transfer
+        assertEquals(149.9, bankAccount2.getBalance());
+        assertEquals(50.1, bankAccount.getBalance());
+        //one cent transfer
+        bankAccount.transfer(.01, bankAccount2);
+        assertEquals(149.91, bankAccount2.getBalance());
         //Invalid Transfer Due not enough funds
         assertThrows(InsufficientFundsException.class, () -> bankAccount.transfer(100, bankAccount2));
         //Invalid Amount Formats Check
         assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(-50, bankAccount2));
         assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(50.111, bankAccount2));
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.transfer(50.001, bankAccount2));
 
     }
 
