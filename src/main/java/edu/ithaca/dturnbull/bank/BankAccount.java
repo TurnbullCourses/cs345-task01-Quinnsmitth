@@ -9,6 +9,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if email is invalid
      */
     public BankAccount(String email, double startingBalance){
+        
         if(isAmountValid(startingBalance) == false){
             throw new IllegalArgumentException("Cannot create account with negative balance or with more than 2 digits after decimal");
         }        

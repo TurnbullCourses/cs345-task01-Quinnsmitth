@@ -124,8 +124,9 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance());
         //multiple deposits in a row
         bankAccount.deposit(100);
-        bankAccount.deposit(100);
-        assertEquals(400, bankAccount.getBalance());
+        bankAccount.deposit(100.01); // with decimal
+        bankAccount.deposit(.1); // with decimal
+        assertEquals(400.11, bankAccount.getBalance());
         //Tries to deposit a negative and invalid decimal amount
         assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-100));
         assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(100.111));
